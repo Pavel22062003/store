@@ -10,6 +10,14 @@ class Item:
 
         self.all.append(self)
 
+    def __repr__(self):
+        """отображение информации об объекте класса в режиме отладки"""
+        return f"{self.__class__.__name__}('{self.__name}', '{self.price}', {self.amount})"
+
+    def __str__(self):
+        """отображение информации об объекте класса для пользователей """
+        return self.__name
+
 
     @staticmethod
     def is_integer(value: int or float) -> bool:
