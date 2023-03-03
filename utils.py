@@ -12,11 +12,15 @@ class Item:
 
     def __repr__(self):
         """отображение информации об объекте класса в режиме отладки"""
-        return f"{self.__class__.__name__}('{self.__name}', '{self.price}', {self.amount})"
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.amount})"
 
     def __str__(self):
         """отображение информации об объекте класса для пользователей """
         return self.__name
+    def __add__(self, other):
+        """Позволяет складывать self.amount, но при это проверяет принадлежит ли экзнмпояр к класу Item"""
+        if isinstance(other, Item) == True:
+            return self.amount + other.amount
 
 
     @staticmethod
@@ -56,3 +60,25 @@ class Item:
     def aply_discount(self):
         self.price = round(self.price * self.pay_rate)
 
+class Phone(Item):
+    def __init__(self,name:str,price:int,amount:int, count_sim:int):
+        super().__init__(name,price,amount)
+        self.count_sim = count_sim
+    @property
+    def sim(self):
+        return self.count_sim
+
+    @sim.setter
+    def sim(self, value):
+        if value <= 0:
+            print('Кол-во сим карт не может быть меньше ноля')
+        else:
+            self.count_sim = value
+
+    def __repr__(self):
+        return f'{super().__repr__()} {self.count_sim}'
+
+b = Item('Phone', 10,20)
+c = Phone('Iphonr', 10,20,2)
+
+print(repr(c))
