@@ -77,8 +77,24 @@ class Phone(Item):
 
     def __repr__(self):
         return f'{super().__repr__()} {self.count_sim}'
+class Mixin(Item):
 
-b = Item('Phone', 10,20)
-c = Phone('Iphonr', 10,20,2)
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.__language = 'EN'
 
-print(repr(c))
+    @property
+    def language(self):
+        return self.__language
+
+    def change_lang(self):
+        if self.__language == 'EN':
+            self.__language = 'RU'
+        else:
+            self.__language = 'EN'
+
+class KeyBoard(Mixin, Item):
+    """класс отличается от  Item тем, что у него есть атрибут language и метод для изменения языка (раскладка клавиатуры). """
+    pass
+
+
